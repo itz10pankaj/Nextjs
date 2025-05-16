@@ -1,0 +1,21 @@
+/* === Reset some default styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Set up basic body styles === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+  line-height: 1.6;
+}
+
+@import './header';
+@import './footer';
+@import './pages/home';
+@import './pages/about';
+@import './pages/contact';
+@import './components/AdvertisementSection'

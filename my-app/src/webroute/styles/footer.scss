@@ -1,0 +1,70 @@
+// src/styles/footer.scss
+
+footer {
+  background-color: white;
+  color: #374151;
+  padding: 2.5rem 1rem;
+
+  @media (min-width: 768px) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 2.5rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .footer-section {
+      h3 {
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        li {
+          a {
+            font-size: 0.875rem;
+            text-decoration: none;
+            color: inherit;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .footer-extra {
+      h3 {
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .app-links {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .ventures {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.homepage-container {
+padding: 2rem;
+  display: flex;
+  flex-direction: row;
+
+  .main-content {
+    width: 75%;
+    h1 {
+      font-size: 1.875rem; // 3xl
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: #4b5563; 
+    }
+  }
+
+  .sidebar {
+    width: 25%;
+  }
+}
