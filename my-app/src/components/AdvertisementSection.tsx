@@ -33,27 +33,20 @@ const ads: AdItem[] = [
 
 const AdvertisementSection: React.FC = () => {
   return (
-    <section className="bg-gray-100 py-10 px-4 ">
-      <h2 className="text-xl font-bold mb-6">Sponsored Ads</h2>
-      <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+ <section className="advertisement-section">
+      <h2>Sponsored Ads</h2>
+      <div className="ads-grid">
         {ads.map((ad, idx) => (
-          <a
-            href={ad.link}
-            key={idx}
-            className="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
-          >
+          <a href={ad.link} key={idx}>
             <Image
               src={ad.image}
               alt={ad.title}
               width={400}
               height={200}
-              className="w-full h-48 object-cover"
             />
-            <div className="p-4">
-              <h3 className="text-md font-semibold">{ad.title}</h3>
-              {ad.description && (
-                <p className="text-sm text-gray-600 mt-1">{ad.description}</p>
-              )}
+            <div className="ad-content">
+              <h3>{ad.title}</h3>
+              {ad.description && <p>{ad.description}</p>}
             </div>
           </a>
         ))}

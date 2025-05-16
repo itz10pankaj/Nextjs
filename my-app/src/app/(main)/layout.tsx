@@ -1,4 +1,4 @@
-import '@/globals.css' 
+import '@/webroute/styles/global.scss'
 import Header from '@/layout/header'
 import Footer from '@/layout/footer'
 import { getMetadata } from '@/utlis/metaData';

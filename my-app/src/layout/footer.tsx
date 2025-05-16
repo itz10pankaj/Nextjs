@@ -49,38 +49,37 @@ const footerVentures = [
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-gray-700 py-10 px-4 md:px-20">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-        {footerSections.map((section, idx) => (
-          <div key={idx}>
-            <h3 className="font-semibold text-sm mb-3">{section.title}</h3>
-            <ul className="space-y-2">
-              {section.links.map((link, i) => (
-                <li key={i}>
-                  <a href={link.href} className="text-sm hover:underline">{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-
-        <div className="md:col-span-1">
-          <h3 className="font-semibold text-sm mb-3">EXPERIENCE CARDEKHO APP</h3>
-          <div className="flex gap-2 mb-5">
-            {footerApps.map((app, idx) => (
-               <Image key={idx} src={app.src} alt={app.alt} width={40} height={40} />
-
-            ))}
-          </div>
-          <h3 className="font-semibold text-sm mb-3">CARDEKHO GROUP VENTURES</h3>
-          <div className="flex flex-wrap gap-4 items-center">
-            {footerVentures.map((venture, idx) => (
-               <Image key={idx} src={venture.src} alt={venture.alt} width={48} height={48} />
-            ))}
-          </div>
-        </div>
+<footer>
+  <div className="footer-grid">
+    {footerSections.map((section, idx) => (
+      <div className="footer-section" key={idx}>
+        <h3>{section.title}</h3>
+        <ul>
+          {section.links.map((link, i) => (
+            <li key={i}>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
       </div>
-    </footer>
+    ))}
+    <div className="footer-extra">
+      <h3>EXPERIENCE CARDEKHO APP</h3>
+      <div className="app-links">
+        {footerApps.map((app, idx) => (
+          <Image key={idx} src={app.src} alt={app.alt} width={40} height={40} />
+        ))}
+      </div>
+      <h3>CARDEKHO GROUP VENTURES</h3>
+      <div className="ventures">
+        {footerVentures.map((venture, idx) => (
+          <Image key={idx} src={venture.src} alt={venture.alt} width={48} height={48} />
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>
+
   );
 };
 
