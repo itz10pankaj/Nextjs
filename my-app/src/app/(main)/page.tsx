@@ -1,4 +1,4 @@
-import AdvertisementSection from "@/components/AdvertisementSection";
+import Widgets from "@/components/widgets";
  
 export default function HomePage() {
   return (
@@ -8,7 +8,7 @@ export default function HomePage() {
         <p>This is the home page of your Next.js application.</p>
       </div>
       <div className="sidebar">
-        <AdvertisementSection />
+        <Widgets />
       </div>
     </div>
   );

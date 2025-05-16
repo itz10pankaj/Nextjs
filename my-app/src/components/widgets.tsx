@@ -31,9 +31,9 @@ const ads: AdItem[] = [
   },
 ];
 
-const AdvertisementSection: React.FC = () => {
+const Widgets: React.FC = () => {
   return (
- <section className="advertisement-section">
+ <section className="widgets-section">
       <h2>Sponsored Ads</h2>
       <div className="ads-grid">
         {ads.map((ad, idx) => (
@@ -55,4 +55,4 @@ const AdvertisementSection: React.FC = () => {
   );
 };
 
-export default AdvertisementSection;
+export default Widgets;
