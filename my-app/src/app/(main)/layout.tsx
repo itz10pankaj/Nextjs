@@ -15,14 +15,14 @@ export async function generateMetadata({ params }: { params?: Params }) {
 }
 
 async function getHeaderData() {
-  const res = await fetch(`http://localhost:3000/api/header`, {
+  const res = await fetch(`${process.env.LOCAL_URL}/api/header`, {
     cache: 'no-store',
   });
   return res.json();
 }
 
 async function getFooterData() {
-  const res = await fetch(`http://localhost:3000/api/footer`, {
+  const res = await fetch(`${process.env.LOCAL_URL}/api/footer`, {
     cache: 'no-store',
   });
   return res.json();
