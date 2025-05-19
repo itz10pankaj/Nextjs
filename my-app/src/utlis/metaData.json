@@ -1,0 +1,42 @@
+{
+    "/": {
+        "title": "Home | MyApp",
+        "description": "Welcome to MyApp - the best solution for your needs",
+        "keywords": [
+            "home",
+            "main",
+            "landing"
+        ],
+        "icons": "/assets/icons/home.png"
+    },
+    "/about": {
+        "title": "About Us | MyApp",
+        "description": "Learn more about our company and mission",
+        "keywords": [
+            "about",
+            "company",
+            "mission"
+        ],
+        "icons": "/assets/icons/about.png"
+    },
+    "/contact": {
+        "title": "Contact Us | MyApp",
+        "description": "Get in touch with our team",
+        "keywords": [
+            "contact",
+            "email",
+            "support"
+        ],
+        "icons": "/assets/icons/home.png"
+    },
+    "/details": {
+        "title": "Details | MyApp",
+        "description": "Get in touch with our team",
+        "keywords": [
+            "contact",
+            "email",
+            "support"
+        ],
+        "icons": ""
+    }
+}

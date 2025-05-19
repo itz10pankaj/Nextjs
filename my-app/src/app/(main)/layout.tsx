@@ -2,28 +2,53 @@ import '@/webroute/styles/global.scss'
 import Header from '@/layout/header'
 import Footer from '@/layout/footer'
 import { getMetadata } from '@/utlis/metaData';
-
+import { FooterProvider } from '@/context/FooterContext';
+import { HeaderProvider } from '@/context/HeaderContext';
 type Params = {
   __segment?: string;
   [key: string]: string | undefined;
 };
-
 export async function generateMetadata({ params }: { params?: Params }) {
   const segment = params?.__segment ?? '';
   const pathname = `/${segment}`;
   return getMetadata(pathname);
 }
-export default function RootLayout({
+
+async function getHeaderData() {
+  const res = await fetch(`http://localhost:3000/api/header`, {
+    cache: 'no-store',
+  });
+  return res.json();
+}
+
+async function getFooterData() {
+  const res = await fetch(`http://localhost:3000/api/footer`, {
+    cache: 'no-store',
+  });
+  return res.json();
+}
+
+
+
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+   const headerData = await getHeaderData();
+  const footerData = await getFooterData();
+  console.log('footerData', footerData);
   return (
     <html lang="en">
       <body>
-        <Header />
+        <HeaderProvider initialData={headerData} >
+          <Header />
+        </HeaderProvider>
         {children}
+        <FooterProvider initialData={footerData} >
         <Footer />
+        </FooterProvider>
       </body>
     </html>
   )

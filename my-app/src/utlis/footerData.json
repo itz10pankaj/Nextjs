@@ -1,0 +1,139 @@
+{
+  "footerSectionsHeaders": [
+    {
+      "label": "About CarDekho",
+      "headerid": 1
+    },
+    {
+      "label": "Connect With Us",
+      "headerid": 2
+    },
+    {
+      "label": "Others",
+      "headerid": 3
+    }
+  ],
+  "footerSectionLinks": [
+    {
+      "label": "About",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Careers With Us",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Terms & Conditions",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Corporate Policies",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Investors",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "FAQs",
+      "href": "#",
+      "headerid": 1
+    },
+    {
+      "label": "Feedback",
+      "href": "#",
+      "headerid": 2
+    },
+    {
+      "label": "Contact Us",
+      "href": "#",
+      "headerid": 2
+    },
+    {
+      "label": "Advertise with Us",
+      "href": "#",
+      "headerid": 2
+    },
+    {
+      "label": "Become Partner Dealer",
+      "href": "#",
+      "headerid": 2
+    },
+    {
+      "label": "TrucksDekho",
+      "href": "#",
+      "headerid": 3
+    },
+    {
+      "label": "TyreDekho",
+      "href": "#",
+      "headerid": 3
+    },
+    {
+      "label": "TractorsDekho",
+      "href": "#",
+      "headerid": 3
+    },
+    {
+      "label": "Girnar Vision Fund",
+      "href": "#",
+      "headerid": 3
+    },
+    {
+      "label": "Emergency Response",
+      "href": "#",
+      "headerid": 3
+    },
+    {
+      "label": "Car Sales Trends",
+      "href": "#",
+      "headerid": 3
+    }
+  ],
+  "footerApps": [
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "App Store"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "Google Play"
+    }
+  ],
+  "footerVentures": [
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "TrucksDekho"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "TyreDekho"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "TractorsDekho"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "CarDekho Gaadi Store"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "CarDekho Insurance"
+    },
+    {
+      "src": "/assets/footer/sample.png",
+      "alt": "CarDekho Finance"
+    }
+  ]
+}

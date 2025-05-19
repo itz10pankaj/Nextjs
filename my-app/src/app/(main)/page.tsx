@@ -1,5 +1,5 @@
 import Widgets from "@/components/widgets";
- 
+
 export default function HomePage() {
   return (
   <div className="homepage-container">
