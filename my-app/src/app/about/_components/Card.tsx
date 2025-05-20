@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import ImageViewer from "@/components/ImageViewer";
 const Card: React.FC = () => {
     const id = "123";
   return (
@@ -8,13 +8,11 @@ const Card: React.FC = () => {
       <div className="ads-grid">
         Hii
       </div>
-      <Link href={`/details/${id}`}>
-        <Image
+        <ImageViewer
           src="/assets/footer/sample.png"
           alt="New SUV Launch!"
-          width={400}
-          height={200}
         />
+      <Link href={`/details/${id}`}>
         <div className="ad-content">
           <h3>New SUV Launch!</h3>
           <p>Discover the latest SUV models now available.</p>

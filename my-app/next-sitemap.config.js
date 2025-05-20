@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'http://localhost:3000', // Replace with your actual domain
-  generateRobotsTxt: false,   
-  exclude: ['/api/*']        // (optional) Generate robots.txt file
-  // You can add more options if needed, like excluding certain pages
+  generateRobotsTxt: false,
+  // exclude: ['/api/*'],
+
 };

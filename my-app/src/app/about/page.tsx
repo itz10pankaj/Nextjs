@@ -1,6 +1,5 @@
-
+"use client"
 import Card from "./_components/Card";
-
 export default function AboutPage() {
   
   return (
