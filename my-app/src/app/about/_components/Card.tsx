@@ -1,22 +1,26 @@
 import Link from "next/link";
 import ImageViewer from "@/components/ImageViewer";
-const Card: React.FC = () => {
-    const id = "123";
+import { encryptId } from "@/utlis/crypto";
+interface Props {
+  id: number;
+}
+
+const Card: React.FC<Props> = ({ id }) => {
+  const encryptedId = encryptId(id);
+
   return (
- <section className="widgets-section">
-      <h2>Sample</h2>
-      <div className="ads-grid">
-        Hii
-      </div>
-        <ImageViewer
-          src="/assets/footer/sample.png"
-          alt="New SUV Launch!"
-        />
-      <Link href={`/details/${id}`}>
-        <div className="ad-content">
-          <h3>New SUV Launch!</h3>
-          <p>Discover the latest SUV models now available.</p>
-        </div>
+    <section className="w-full max-w-md mx-auto flex flex-col items-center justify-center p-6 border rounded-lg shadow-md bg-white">
+      <h2 className="text-2xl font-semibold mb-4">Card--{id}</h2>
+
+      <ImageViewer
+        src="/assets/footer/sample.png"
+        alt="New SUV Launch!"
+      />
+
+      <Link href={`/details/${encryptedId}`}>
+        <button className="mt-6 px-4 py-2 bg-green-500 text-white font-medium rounded-md border-2 border-green-700 hover:bg-green-600 transition-all duration-200">
+          Click here to go to Card!
+        </button>
       </Link>
     </section>
   );

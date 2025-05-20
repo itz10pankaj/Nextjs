@@ -1,7 +1,7 @@
 // src/components/CardDetails.tsx
 
 interface CardDetailProps {
-  id: string;
+  id: number;
 }
 
 const CardDetail: React.FC<CardDetailProps> = ({ id }) => {
