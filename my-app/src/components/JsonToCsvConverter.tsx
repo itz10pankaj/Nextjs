@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // const converter = require('json-2-csv');
 import * as converter from 'json-2-csv';
-
+import styled from 'styled-components';
 const JsonToCsvConverter: React.FC = () => {
   const [jsonInput, setJsonInput] = useState('');
   const [error, setError] = useState('');
@@ -40,25 +40,63 @@ const handleConvert = async () => {
     setError('Failed to convert to CSV. See console for details.');
   }
 };
+const Wrapper = styled.div`
+  max-width: 42rem; /* max-w-2xl */
+  margin: 0 auto;   /* mx-auto */
+  padding: 1.5rem;  /* p-6 */
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow */
+  border-radius: 0.5rem; /* rounded */
+`;
+const Title = styled.h2`
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600;   /* font-semibold */
+  margin-bottom: 1rem; /* mb-4 */
+`;
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 15rem;      /* h-60 */
+  padding: 0.5rem;    /* p-2 */
+  border: 1px solid #ccc;
+  border-radius: 0.375rem; /* rounded */
+  resize: none;
+  font-family: monospace;
+  font-size: 0.875rem; /* text-sm */
+`;
+const ErrorText = styled.p`
+  color: #ef4444; /* text-red-500 */
+  margin-top: 0.5rem;
+`;
+const Button = styled.button`
+  margin-top: 1rem;       /* mt-4 */
+  padding: 0.5rem 1rem;   /* px-4 py-2 */
+  background-color: #2563eb; /* bg-blue-600 */
+  color: white;
+  border: none;
+  border-radius: 0.375rem; /* rounded */
+  cursor: pointer;
+  transition: background-color 0.2s;
 
+  &:hover {
+    background-color: #1d4ed8; /* hover:bg-blue-700 */
+  }
+`;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-xl font-semibold mb-4">JSON to CSV Converter</h2>
-      <textarea
-        className="w-full h-60 p-2 border rounded resize-none font-mono text-sm"
+    <Wrapper>
+      <Title>JSON to CSV Converter</Title>
+      <TextArea
         placeholder='Paste your JSON array here, e.g. [{"name": "John", "age": 30}]'
         value={jsonInput}
         onChange={(e) => setJsonInput(e.target.value)}
       />
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <button
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      {error && <ErrorText>{error}</ErrorText>}
+      <Button
         onClick={handleConvert}
       >
         Convert & Download CSV
-      </button>
-    </div>
+      </Button>
+    </Wrapper>
   );
 };
 

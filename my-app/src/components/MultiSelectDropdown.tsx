@@ -1,10 +1,67 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import styled from "styled-components";
 interface MultiSelectProps {
   options: string[];
   selected: string[];
   onChange: (selected: string[]) => void;
 }
+
+const DropdownContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 18rem; /* w-72 */
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  text-align: left;
+  background-color: white;
+  color: #111827; /* text-gray-900 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none;
+
+  &:focus {
+    border-color: #22c55e; /* border-green-500 */
+    box-shadow: 0 0 0 2px #86efac; /* ring-green-400 */
+  }
+  placeholder {
+    color: #9ca3af; /* text-gray-400 */
+  }
+`;
+const Arrow = styled.span`
+float: right;
+`;
+const DropdownList = styled.div`
+  position: absolute;
+  z-index: 10;
+  margin-top: 0.25rem;
+  max-height: 15rem; /* max-h-60 */
+  width: 100%;
+  overflow: auto;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+`;
+
+const OptionLabel = styled.label`
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #dcfce7; /* hover:bg-green-100 */
+  }
+
+  input {
+    margin-right: 0.5rem;
+  }
+`;
+
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
   options,
@@ -33,37 +90,35 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   };
 
   return (
-    <div className="relative inline-block w-72" ref={dropdownRef}>
-      <button
+    <DropdownContainer  ref={dropdownRef}>
+      <Button
         type="button"
-        className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-left text-gray-900 shadow-sm focus:border-green-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected.length > 0 ? selected.join(", ") : (
-          <span className="text-gray-400">Select an option</span>
+          <span >Select an option</span>
         )}
-        <span className="float-right">&#9662;</span> 
-      </button>
+        <Arrow>&#9662;</Arrow> 
+      </Button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg">
+        <DropdownList >
           {options.map(option => (
-            <label
+            <OptionLabel
               key={option}
-              className="flex items-center px-4 py-2 hover:bg-green-100 cursor-pointer"
+              
             >
               <input
                 type="checkbox"
-                className="mr-2"
                 checked={selected.includes(option)}
                 onChange={() => toggleOption(option)}
               />
               {option}
-            </label>
+            </OptionLabel>
           ))}
-        </div>
+        </DropdownList>
       )}
-    </div>
+    </DropdownContainer>
   );
 };
 
