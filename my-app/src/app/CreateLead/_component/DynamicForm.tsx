@@ -2,26 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import MultiSelect from '@/components/MultiSelectDropdown';
 import styled from 'styled-components';
+import type {FieldSchema} from '../page';
 
-export interface FieldSchema {
-    id: number;
-    type: string;
-    label: string;
-    name: string;
-    value: string | number | boolean | string[] | undefined;
-    placeholder?: string;
-    options: string[];
-    is_required: boolean;
-    is_enable: boolean;
-    is_show: boolean;
-    field_show?: string;
-    parent_depedencies?: string;
-    validation?: {
-        regex?: string;
-        min_length?: number;
-        max_length?: number;
-    };
-}
 
 interface DynamicFormProps {
     schema: FieldSchema[];
@@ -35,6 +17,45 @@ const Input = styled.input`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   outline: none;
 `;
+
+const autoCopyMap = [
+    {
+
+        trigger: 'per_sameas_cur', // name of the switch
+        from: 'per_house_no',      // source field
+        to: 'cur_house_no',        // target field
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_rt',
+        to: 'cur_rt',
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_rw',
+        to: 'cur_rw',
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_province',
+        to: 'cur_province',
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_city',
+        to: 'cur_city',
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_district',
+        to: 'cur_district',
+    },
+    {
+        trigger: 'per_sameas_cur',
+        from: 'per_sub_district',
+        to: 'cur_sub_district',
+    },
+];
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
     const [formData, setFormData] = useState<Record<string, string | number | string[] | boolean>>({});
@@ -64,6 +85,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                 return <h2 className="text-lg font-bold">{field.label}</h2>;
 
             case 'tb':
+                const isAutoCopied = autoCopyMap.some(
+                    ({ trigger, to }) => to === field.name && formData[trigger] === 1
+                );
                 return (
                     <Input
                         type="text"
@@ -72,6 +96,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                         value={normalizeValue(formData[field.name])}
                         onChange={(e) => handleChange(field.name, e.target.value)}
                         required={field.is_required}
+                        disabled={isAutoCopied || !field.is_enable}
                     />
                 );
 
@@ -108,10 +133,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                 const options = field.options && field.options.length > 0
                     ? field.options.map(opt => (typeof opt === 'string' ? { label: opt, value: opt } : opt))
                     : field.value
-                    ? (typeof field.value === 'object' && field.value !== null && 'label' in field.value && 'value' in field.value
-                        ? [{ label: (field.value as { label: string; value: string }).label, value: (field.value as { label: string; value: string }).value }]
-                        : [])
-                    : [];
+                        ? (typeof field.value === 'object' && field.value !== null && 'label' in field.value && 'value' in field.value
+                            ? [{ label: (field.value as { label: string; value: string }).label, value: (field.value as { label: string; value: string }).value }]
+                            : [])
+                        : [];
 
                 const selectedValue = formData[field.name] ?? '';
 
@@ -125,9 +150,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                         disabled={!field.is_enable}
                     >
                         <option value="">Select {field.label}</option>
-                        {options.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                                {opt.label}
+                        {options.map((opt, idx) => (
+                            <option key={`${opt.label}-${opt.value}-${idx}`} value={opt.value}>
+                                {typeof opt.label === "string" ? opt.label : JSON.stringify(opt.label)}
                             </option>
                         ))}
                     </select>
@@ -146,19 +171,24 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
             case 'radio':
                 return (
                     <div>
-                        {field.options?.map((opt: string) => (
-                            <label key={opt} style={{ marginRight: '1rem' }}>
-                                <input
-                                    type="radio"
-                                    name={field.name}
-                                    value={normalizeValue(opt)}
-                                    checked={formData[field.name] === opt}
-                                    onChange={(e) => handleChange(field.name, e.target.value)}
-                                    required={field.is_required}
-                                />
-                                {opt}
-                            </label>
-                        ))}
+                        {field.options?.map((opt: string | { label: string; value: string }, idx) => {
+                            const label = typeof opt === 'string' ? opt : opt.label;
+                            const value = typeof opt === 'string' ? opt : opt.value;
+
+                            return (
+                                <label key={`${label}-${value}-${idx}`} style={{ marginRight: '1rem' }}>
+                                    <input
+                                        type="radio"
+                                        name={field.name}
+                                        value={normalizeValue(value)}
+                                        checked={String(formData[field.name]) === String(value)}
+                                        onChange={(e) => handleChange(field.name, e.target.value)}
+                                        required={field.is_required}
+                                    />
+                                    {typeof label === "string" ? label : JSON.stringify(label)}
+                                </label>
+                            );
+                        })}
                     </div>
                 );
 
@@ -169,10 +199,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                             type="checkbox"
                             name={field.name}
                             value={normalizeValue(formData[field.name])}
-                            checked={!!formData[field.name]}
+                            checked={formData[field.name] === 1 || formData[field.name] === true}
                             onChange={(e) => handleChange(field.name, e.target.checked)}
                         />
-                        <span>{formData[field.name] ? 'On' : 'Off'}</span>
+                        <span>{formData[field.name] === 1 || formData[field.name] === true ? 'On' : 'Off'}</span>
                     </label>
                 );
 
@@ -207,6 +237,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
         return true;
     };
 
+
     useEffect(() => {
         schema.forEach(field => {
             if (field.parent_depedencies) {
@@ -218,17 +249,60 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
                     setFormData(prev => ({ ...prev, [field.name]: sum }));
                 }
             }
+        });
+    }, [formData,schema]);
+
+
+    //default value set krne ke liye 
+    useEffect(() => {
+        schema.forEach(field => {
             //default value set krne ke liye 
             if (field.value && formData[field.name] === undefined) {
                 const defaultValue =
                     typeof field.value === 'object' && field.value !== null && 'value' in field.value
                         ? field.value.value
                         : field.value;
-
                 setFormData(prev => ({ ...prev, [field.name]: defaultValue as string | number | boolean | string[] }));
             }
         });
-    }, [formData, schema]);
+    }, [schema]);
+
+    //FOR ADDRESS MAPPING
+    const triggered = formData['per_sameas_cur'];
+    useEffect(() => {
+        autoCopyMap.forEach(({ trigger, from, to }) => {
+            if (formData[trigger] == 1) {
+                setFormData((prev) => ({
+                    ...prev,
+                    [to]: prev[from] || '',
+                }));
+            }
+        });
+    }, [triggered, ...autoCopyMap.map(({ from }) => formData[from])]);
+
+
+    //FOR AGE CLACULATE
+    const bstkInsurerDate = formData['bstk_insurer_date'];
+    useEffect(() => {
+        if (typeof bstkInsurerDate === 'string' && bstkInsurerDate) {
+            const bstk_insurer_date = new Date(bstkInsurerDate);
+            const today = new Date();
+
+            let age = today.getFullYear() - bstk_insurer_date.getFullYear();
+            const monthDiff = today.getMonth() - bstk_insurer_date.getMonth();
+            const dayDiff = today.getDate() - bstk_insurer_date.getDate();
+
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                age--;
+            }
+
+            if (age < 0) age = 0;
+
+            if (formData['bstk_age'] !== String(age)) {
+                setFormData(prev => ({ ...prev, bstk_age: String(age) }));
+            }
+        }
+    }, [bstkInsurerDate]);
 
 
     const filteredSchema = schema.filter((field, index, self) => {

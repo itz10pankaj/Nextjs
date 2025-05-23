@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+type DropdownOption = { value: string; label: string };
 interface MultiSelectProps {
-  options: string[];
+  options: string[] | DropdownOption[];
   selected: string[];
   onChange: (selected: string[]) => void;
 }
@@ -70,6 +71,11 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const normalizedOptions: DropdownOption[] = Array.isArray(options)
+    ? options.map((opt) =>
+        typeof opt === "string" ? { value: opt, label: opt } : opt
+      )
+    : [];
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -102,18 +108,15 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       </Button>
 
       {isOpen && (
-        <DropdownList >
-          {options.map(option => (
-            <OptionLabel
-              key={option}
-              
-            >
+        <DropdownList>
+          {normalizedOptions.map(option => (
+            <OptionLabel key={option.value}>
               <input
                 type="checkbox"
-                checked={selected.includes(option)}
-                onChange={() => toggleOption(option)}
+                checked={selected.includes(option.value)}
+                onChange={() => toggleOption(option.value)}
               />
-              {option}
+              {option.label}
             </OptionLabel>
           ))}
         </DropdownList>
