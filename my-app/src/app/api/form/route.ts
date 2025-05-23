@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 export async function GET() {
- const res = await fetch('https://int-gcloud-stage.oto.com/insurancebox//common/getFormFields', {
+ const res = await fetch('https://pre-api-id.oto.com/insurancebox//common/getFormFields', {
     method: 'POST',
     headers: {
       'apiKey': 'agentbox-ac1faa7b-9fe9-4483-9525-5cc4ce94c639',
