@@ -110,7 +110,7 @@ const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(
                             type="number"
                             name={field.name}
                             placeholder={field.placeholder}
-                            value={getFieldValue(field.name, 0)}
+                            value={getFieldValue(field.name, "")}
                             onChange={(e) => handleChange(field.name, e.target.value)}
                             required={field.is_required}
                             disabled={!field.is_enable}
