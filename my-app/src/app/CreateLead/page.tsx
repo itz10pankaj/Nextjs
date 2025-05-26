@@ -74,7 +74,7 @@ const TabButton = styled.button<{ $active: boolean }>`
   }
 `;
 
-const TAB_NAMES = ["Application", "Docs"];
+const TAB_NAMES = ["Application", "Docs",];
 function isFormSection(section: unknown): section is FormSection {
   return typeof section === 'object' && section !== null;
 }

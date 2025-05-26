@@ -9,6 +9,7 @@ interface DynamicFormProps {
     schema: FieldSchema[];
 }
 type FormValue = string | number | boolean | string[] | File | Record<number, File | string>;
+// type FormValue = any;
 type FormDataType = Record<string, FormValue>;
 
 const Input = styled.input`
@@ -59,18 +60,26 @@ const autoCopyMap = [
     },
 ];
 
-const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(
-    ({ schema }, ref) => {
+
+
+const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(({ schema }, ref) => {
         const [formData, setFormData] = useState<FormDataType>({});
         const handleChange = (name: string, value: FormValue) => {
             setFormData(prev => ({ ...prev, [name]: value }));
         };
 
-
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault();
             console.log('Form Submitted:', formData);
         };
+
+        const ParentDepency:string[] = [];
+        schema.forEach(field => {
+            if (field.parent_depedencies) {
+                const parents = field.parent_depedencies.split(',').map(p => p.trim());
+                ParentDepency.push(...parents);
+            }
+        });
 
         const getFieldValue = <T extends FormValue>(name: string, defaultValue: T): T => {
             const value = formData[name];
@@ -297,8 +306,10 @@ const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(
             return true;
         };
 
+        //ye vala function hai parent field ke acc uski child field set krne ke liey        
 
-        useEffect(() => {
+        const calculateAndSetDependencies = () => {
+            // console.log('Calculating dependencies...');
             schema.forEach(field => {
                 if (field.parent_depedencies) {
                     const parents = field.parent_depedencies.split(',').map(p => p.trim());
@@ -310,13 +321,15 @@ const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(
                     }
                 }
             });
-        }, [formData, schema]);
+        };
+        useEffect(() => {
+            calculateAndSetDependencies();
+        }, [...ParentDepency.map(dep => formData[dep])]);
 
 
         //default value set krne ke liye 
-        useEffect(() => {
+        const defaultValues = ()=>{
             schema.forEach(field => {
-                //default value set krne ke liye 
                 if (field.value && formData[field.name] === undefined) {
                     const defaultValue =
                         typeof field.value === 'object' && field.value !== null && 'value' in field.value
@@ -325,6 +338,9 @@ const DynamicForm = forwardRef<HTMLFormElement, DynamicFormProps>(
                     setFormData(prev => ({ ...prev, [field.name]: defaultValue as string | number | boolean | string[] }));
                 }
             });
+        }
+        useEffect(() => {
+            defaultValues();
         }, [schema]);
 
         //FOR ADDRESS MAPPING
