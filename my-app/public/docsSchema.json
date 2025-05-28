@@ -22,7 +22,6 @@
         "field_show": null,
         "data_type": "number"
     },
-    
     {
         "id": 6,
         "name": "is_ktpid_image",
@@ -45,7 +44,7 @@
         "options": [],
         "field_show": "is_ktpid_images/1",
         "data_type": "file",
-        "multiple" :2
+        "multiple": 2
     },
     {
         "id": 1378,
@@ -253,5 +252,29 @@
         "options": [],
         "field_show": "is_stnk_photo/1",
         "data_type": "file"
+    },
+    {
+        "id": 23,
+        "name": "range_date",
+        "label": "Range Date",
+        "type": "rangedate",
+        "keyboard_type": null,
+        "is_required": false,
+        "prefix": null,
+        "is_show": false,
+        "is_enable": false,
+        "value": "",
+        "validation": {
+            "type": "months",
+            "regex": "",
+            "min_length": null,
+            "max_length": 2
+        },
+        "parent_depedencies": null,
+        "child_depedencies": null,
+        "error_msg": "Please select Insurance Premium Start Date",
+        "options": [],
+        "field_show": null,
+        "data_type": "string"
     }
 ]
