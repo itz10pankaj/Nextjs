@@ -2,7 +2,7 @@
 import { useState } from "react";
 import MultiSelect from "@/components/MultiSelectDropdown";
 export default function ContactPage() {
-  const optionsList = ["Whatsapp", "Email", "Telegram"];
+  const optionsList = ["Whatsapp", "Email", "Telegram","a","gyh","bjhb","bjkbjknjk"];
   const [selectedMedium, setSelectedMedium] = useState<string[]>([]);
   return (
     <div className="contact-container">
